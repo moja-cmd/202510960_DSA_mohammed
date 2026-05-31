@@ -1,53 +1,63 @@
+#include "Library_Book.h"
+#include "function.h"
 #include <iostream>
-#include <string>
-#include "notebad.h"
 
-using namespace std;
-
-int main() {
+int main()
+{
+    const int MAX_BOOKS = 100;
+    LibraryBook library[MAX_BOOKS]; // Static Array of objects
+    int currentBookCount = 0;
     int choice;
-    string filename;
-    
-    do {
-        // Display the Notepad Menu
-        cout << "=== SIMPLE NOTEPAD ===" << endl;
-        cout << "1. Write File" << endl;
-        cout << "2. Read File" << endl;
-        cout << "3. Append File" << endl;
-        cout << "4. Exit" << endl;
-        cout << "Enter choice: ";
-        cin >> choice;
-        
-       
-        switch (choice) {
-            case 1:
-                cout << "Enter filename to create/overwrite (e.g., notes.txt): ";
-                cin >> filename;
-                cin.ignore();
-                writeFile(filename);
-                break;
-                
-            case 2:
-                cout << "Enter filename to read: ";
-                cin >> filename;
-                readFile(filename);
-                break;
-                
-            case 3:
-                cout << "Enter filename to append to: ";
-                cin >> filename;
-                cin.ignore(); 
-                appendFile(filename);
-                break;
-                
-            case 4:
-                cout << "Exiting Notepad. Goodbye!" << endl;
-                break;
-                
-            default:
-                cout << "Invalid choice! Please select an option from 1 to 4.\n" << endl;
+
+    std::cout << "====================================================\n";
+    std::cout << " WELCOME TO KIGALI INDEPENDENT UNIVERSITY LIBRARY\n";
+    std::cout << "====================================================\n";
+
+    do
+    {
+        std::cout << "\n--- LIBRARY SYSTEM MENU ---\n";
+        std::cout << "1. Add New Book\n";
+        std::cout << "2. Display All Books\n";
+        std::cout << "3. Borrow Book\n";
+        std::cout << "4. Return Book\n";
+        std::cout << "5. Search Book by ID\n";
+        std::cout << "6. Display Overdue Books\n";
+        std::cout << "7. Calculate Total Fines\n";
+        std::cout << "8. Exit\n";
+        std::cout << "Enter your choice (1-8): ";
+
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            addBook(library, currentBookCount, MAX_BOOKS);
+            break;
+        case 2:
+            displayBooks(library, currentBookCount);
+            break;
+        case 3:
+            borrowBookMenu(library, currentBookCount);
+            break;
+        case 4:
+            returnBookMenu(library, currentBookCount);
+            break;
+        case 5:
+            searchBook(library, currentBookCount);
+            break;
+        case 6:
+            displayOverdueBooks(library, currentBookCount);
+            break;
+        case 7:
+            calculateTotalFines(library, currentBookCount);
+            break;
+        case 8:
+            std::cout << "\nExiting the system. Thank you!\n";
+            break;
+        default:
+            std::cout << "\nInvalid input choice! Please enter a number between 1 and 8.\n";
         }
-    } while (choice != 4);
-    
+    } while (choice != 8);
+
     return 0;
 }
